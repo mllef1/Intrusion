@@ -1,0 +1,11 @@
+proxy support
+threads
+proxy ammounts
+auto find form stuff
+manual form stuff
+maybe csrf bypass
+make it look pretty
+splitting stuff for the csrf
+proxy sources interface
+continuous attack even if one correct
+both get and post
