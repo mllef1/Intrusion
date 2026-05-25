@@ -46,23 +46,34 @@ def auto():
     soup = bs.BeautifulSoup(login_page.text,'lxml')
     form = soup.find('form')
     form = str(form).split('<')
-    
+
     for line in form:
-        
+
         if 'input' in line:
             #print(str(line))
             auto_inputs.append("<" + line.strip())
     print(auto_inputs)
 
 
+    #messy code for creating form data
+    form_data = {}
+    for input in auto_inputs:
+        input = input.split(" ")
+        thename = ""
+        thevalue = ""
+        for i in range(len(input)):
 
-
+            if "name=" in input[i]:
+                name_thing = input[i].split(input[i][input[i].find("=")+1])
+                thename = name_thing[1]
+            if "value=" in input[i]:
+                value_thing = input[i].split(input[i][input[i].find("=")+1])
+                thevalue = value_thing[1]
+        form_data[thename] = thevalue
+        print(form_data)
 
 target = input("target: ")
 wordlist_loc = input("wordlist: ")
 isauto = input("(a)uto or (m)anual: ")
 if isauto == "a":
     auto()
-
-
-
