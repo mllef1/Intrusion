@@ -14,7 +14,7 @@ data = "" # post data, or get
 which = "" #required, if either correct or incorrect checking
 wordlist_loc = ""
 auto_inputs = []
-
+username = "webadmin"
 
 
 
@@ -40,6 +40,9 @@ def attack(proxy, passwd):
 def collect_proxies():
     pass
 
+
+
+#the auto method finds the form automatically, and starts attacking it automatically
 def auto():
     inputs = []
     login_page = requests.get(target)
@@ -57,6 +60,8 @@ def auto():
 
     #messy code for creating form data
     form_data = {}
+    user_change = 0
+    pass_change = 0
     for input in auto_inputs:
         input = input.split(" ")
         thename = ""
@@ -66,11 +71,24 @@ def auto():
             if "name=" in input[i]:
                 name_thing = input[i].split(input[i][input[i].find("=")+1])
                 thename = name_thing[1]
+                if ("username" in thename or "name" in thename or "email" in thename):
+                    user_change = i # saving the index of what username thing we are changing
+                if ("pass" in thename):
+                    pass_change = i # save the index of password thing
+
             if "value=" in input[i]:
                 value_thing = input[i].split(input[i][input[i].find("=")+1])
                 thevalue = value_thing[1]
         form_data[thename] = thevalue
         print(form_data)
+
+
+
+
+
+
+
+
 
 target = input("target: ")
 wordlist_loc = input("wordlist: ")
